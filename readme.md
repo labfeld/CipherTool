@@ -1,4 +1,4 @@
-# py_cyberchef_practice
+# CipherTool 
 
 This is a tool to practice using [CyberChef](gchq.github.io/CyberChef).
 
