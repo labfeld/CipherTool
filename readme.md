@@ -15,7 +15,7 @@ Currently it suppports a few ciphers:
 - - -
 ## Usage
 
-The simpliest way is just `./main.py` in your terminal.
+The simpliest way is to run `./main.py` in your terminal.
 
 By default, it uses 1-3 ciphers. To change the numbers, use `--min <X>`, `--max <Y>` to set the minimum number of ciphers to `<X>`, and the maximum to `<Y>.
 
