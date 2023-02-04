@@ -1,6 +1,6 @@
 # CipherTool 
 
-This is a tool to practice using [CyberChef](gchq.github.io/CyberChef).
+This is a tool to practice using [CyberChef](https://gchq.github.io/CyberChef).
 
 Currently it suppports a few ciphers:
 - Rot13
@@ -28,9 +28,9 @@ Currently there are a few unittests to verify the ciphers are working as intende
 - - -
 
 ## TODO:
-[ ] Make the raw text resemble a flag, and give this script an input to verify that the flag was deciphered.
-[ ] Add more ciphers.
-[ ] Make it smarter about what ciphers can be used after other ciphers; it shouldn't do back-to-back reverses.
+[] Make the raw text resemble a flag, and give this script an input to verify that the flag was deciphered.
+[] Add more ciphers.
+[] Make it smarter about what ciphers can be used after other ciphers; it shouldn't do back-to-back reverses.
 
 - - -
 
