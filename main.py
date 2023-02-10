@@ -1,7 +1,6 @@
 #!/bin/python3
 
 # TODO: Make more encoding methods
-# TODO: Make it accept command line arguments for the min/max steps
 # TODO: Make it so there are different "tiers" of encoding? 
 
 import random
@@ -106,6 +105,7 @@ def main():
     parser.add_argument('-o', '--outfile', nargs='?', type=argparse.FileType('w'), help='output file. Will output to console if omitted.')
     parser.add_argument('-m','--min', type=int, default=1, help='minimum number of ciphers to apply.')
     parser.add_argument('-M','--max', type=int, default=3, help='maximum number of ciphers to apply.')
+    parser.add_argument('-f','--flag', type=str, default=None, help='the flag to be ciphered. Will generate one in the format "flag{xxxxxxxxxxxxxxxx}" if omitted')
     args = parser.parse_args()
     
     MIN_STEPS = args.min
@@ -114,8 +114,12 @@ def main():
     methods_to_use = METHODS_CASE_SAFE
     methods_to_use.extend(METHODS_CASE_UNSAFE)
     methods_to_use.extend(METHODS_REQUIRE_CASE)
+
     
-    raw_text = 'Lorem ipsum dolor sit amet.'
+    if args.flag == None:
+        raw_text = 'flag{' + ''.join([random.choice(string.ascii_letters + string.digits + '!@#$%^&*-_=+') for _ in range(16)]) + '}'
+    else:
+        raw_text = args.flag
     cipher_text = raw_text
 
     cipher_history = []
@@ -124,7 +128,10 @@ def main():
         m = random.choice(methods)
         if m in METHODS_REQUIRE_CASE:
             # If there has been a cipher that requires case to be preserved, it will remove ciphers that do not preserve case, otherwise the message can become unrecoverable.
-            [methods_to_use.remove(unsafe_method) for unsafe_method in METHODS_CASE_UNSAFE]
+            # Note: This is slow; it only needs to remove case unsafe methods once, and not check again.
+            for unsafe_method in METHODS_CASE_UNSAFE:
+                if unsafe_method in methods_to_use:
+                    methods_to_use.remove(unsafe_method)
         if DEBUG_LOG_CIPHER_HISTORY:
             print(f'Step:{can_do_case_unsafe_cipher} {i} - "{s}"')
             print(f'Applying {m}')
