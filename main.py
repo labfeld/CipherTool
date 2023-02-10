@@ -1,7 +1,7 @@
 #!/bin/python3
 
-# TODO: Make more encoding methods
-# TODO: Make it so there are different "tiers" of encoding? 
+# TODO: Make more cipher methods
+# TODO: Make it so there are different "difficulties" of ciphers? 
 
 import random
 import base64
