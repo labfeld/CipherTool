@@ -2,11 +2,14 @@
 
 # TODO: Make more cipher methods
 # TODO: Make it so there are different "difficulties" of ciphers? 
+# TODO: Make it so that there aren't so many "confusing" symbols generated in the flags?
 
 import random
 import base64
 import string
 import argparse
+import time
+
 
 def rot(s, n=13):
     lookup = dict(zip(string.ascii_lowercase+string.ascii_uppercase,''.join([string.ascii_lowercase[n:], string.ascii_lowercase[:n], string.ascii_uppercase[n:], string.ascii_uppercase[:n]])))
@@ -106,6 +109,7 @@ def main():
     parser.add_argument('-m','--min', type=int, default=1, help='minimum number of ciphers to apply.')
     parser.add_argument('-M','--max', type=int, default=3, help='maximum number of ciphers to apply.')
     parser.add_argument('-f','--flag', type=str, default=None, help='the flag to be ciphered. Will generate one in the format "flag{xxxxxxxxxxxxxxxx}" if omitted')
+    parser.add_argument('-i','--input', action='store_true', help='make the script wait with an input box for you to verify the flag.')
     args = parser.parse_args()
     
     MIN_STEPS = args.min
@@ -147,5 +151,11 @@ def main():
         with args.outfile as f:
             f.write(output)
             f.close()
+    if args.input:
+        start_time = time.time()
+        while input('Enter the flag: ') != raw_text:
+            print('Incorrect flag.')
+        print(f'Correct flag. It took you {round(time.time()-start_time, 3)} seconds to solve it.')
+
 if __name__ == '__main__':
     main()
